@@ -1,3 +1,5 @@
+//const { Observable } = require("rxjs");
+
 const c = console.log;
 c("Bienvenido a RXJS!!");
 
@@ -39,4 +41,29 @@ const numbersSubscription = numbers.pipe(
     c(num);
     
 });
+
+const ticksObservable = new rxjs.Observable(subscriber => {
+    subscriber.next(1);
+    subscriber.next(2);
+    subscriber.next(3);
+    setTimeout(() => {
+        subscriber.next(4);
+        subscriber.complete();
+    }, 2000);
+});
+
+const tickSubscription = ticksObservable.subscribe({
+    next(x){c(x)},
+    error(err){c(err)},
+    complete(){
+        c("Observable Ticker finished!!");
+        tickSubscription.unsubscribe(()=> {c("Unsubscribed from Ticker Observable.")});
+    }
+});
+
+
+
+
+
+
 
