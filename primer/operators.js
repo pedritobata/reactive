@@ -16,3 +16,10 @@ const exhaustObservable = rxjs.interval(1000).pipe(
     rxjs.operators.exhaust()
 ).subscribe(tick => console.log(tick));
 exhaustObservable.unsubscribe();
+
+const mergeObservable = rxjs.interval(1000)
+.pipe(
+    rxjs.operators.map(x=> rxjs.interval(1000)),
+    rxjs.operators.mergeAll()
+).subscribe(tick => console.log(tick));
+mergeObservable.unsubscribe();
