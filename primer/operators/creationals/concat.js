@@ -13,3 +13,7 @@ const concat2$ = rxjs.concat(
     rxjs.interval(2000).pipe(rxjs.operators.take(4)),
     rxjs.interval(1000).pipe(rxjs.operators.take(5)),
 ).subscribe(x => console.log(x));
+
+//Se puede repetir el mismo observable como argumentos de concat
+const timer$ = rxjs.timer(0, 1000).pipe(rxjs.operators.take(4));
+const concat3$ = rxjs.concat(timer$, timer$).subscribe(x => console.log("concat3$", x));
